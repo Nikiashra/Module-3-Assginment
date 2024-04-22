@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+
+void main()
+{
+  runApp(Reverse());
+}
+
+class Reverse extends StatefulWidget
+{
+  const Reverse({super.key});
+
+  @override
+  State<Reverse> createState() => _ReverseState();
+}
+
+class _ReverseState extends State<Reverse>
+{
+  TextEditingController number = TextEditingController();
+  String _reversedNumber = '';
+
+  void _reverseNumber() {
+    String input = number.text;
+    String reversedInput = input.split('').reversed.join('');
+    setState(() {
+      _reversedNumber = reversedInput;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Scaffold(appBar: AppBar(title: Text("Revers Number"),),
+      body: Center(
+
+        child: Column(
+
+          children: [
+
+            TextField(controller: number,decoration: InputDecoration(hintText: "Enter threedigit number"),),
+
+            SizedBox(height: 16.0),
+
+            ElevatedButton(
+              onPressed: _reverseNumber,
+              child: Text('Reverse'),
+            ),
+
+            SizedBox(height: 16.0),
+            Text(
+              'Reversed number:',
+              style: TextStyle(fontSize: 18.0),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              _reversedNumber,
+              style: TextStyle(fontSize: 24.0),
+            )
+
+
+
+          ],
+        ),
+      ),
+    );
+
+  }
+}
