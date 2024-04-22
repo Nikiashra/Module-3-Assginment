@@ -1,0 +1,163 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const Myapp());
+}
+
+class Myapp extends StatelessWidget {
+  const Myapp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Registration Form',
+      theme: ThemeData(
+        primarySwatch:Colors.pink,
+      ),
+      home: Login(),
+
+    );
+  }
+}
+
+class Login extends StatefulWidget
+{
+  @override
+  LoginState createState() => LoginState();
+
+}
+class LoginState extends State<Login>
+{
+
+  final _formKey = GlobalKey<FormState>();
+
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Scaffold(
+         appBar: AppBar(title: Text("Login Form"),backgroundColor: Colors.blue,),
+         body: Center
+          (
+        key: _formKey,
+        child: Column(
+
+          children:
+          [
+
+            TextFormField(
+              decoration: InputDecoration
+                (
+                icon: Icon(Icons.phone),
+                hintText: 'Enter a phone number',
+                labelText: "Phone",
+              ),
+              validator: (value)
+              {
+                if(value!.isEmpty)
+                {
+                  return 'Please enter Mobile Number';
+                }
+                return null;
+              },),
+            TextFormField(
+              decoration: InputDecoration(
+                  icon: Icon(Icons.password),
+                  hintText: 'Enter a password',
+                  labelText: "Password"
+              ),
+              obscureText: true,
+              validator: (value)
+              {
+                if(value!.isEmpty)
+                {
+                  return 'Please enter Password';
+                }
+                return null;
+              },),
+            SizedBox(height: 35),
+            ElevatedButton(onPressed: ()
+            {
+
+              if(_formKey.currentState!.validate())
+              {
+                print("Login done");
+
+
+
+              }
+              else
+              {
+                print("Login Fail");
+              }
+
+
+            }, child: Text("Login")),
+
+            ElevatedButton(onPressed: ()
+            {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+            },
+                child: Text("Sign up"))
+
+          ],
+
+        ),
+
+        // ),
+      ),
+    );
+  }
+
+}
+
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
+
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
+    TextEditingController name = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+    TextEditingController address = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title:Text('Registration page')),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            TextFormField(
+              controller: name,decoration: InputDecoration(border:OutlineInputBorder(),hintText: "Enter Your Name"),),
+            SizedBox(height: 15),
+
+            TextFormField(
+              controller: email,decoration: InputDecoration(border:OutlineInputBorder(),hintText: "Enter ur email"),),
+
+            SizedBox(height: 15),
+
+            TextFormField(
+              controller: password,decoration: InputDecoration(border:OutlineInputBorder(),hintText: "Enter Your Password"),),
+            SizedBox(height: 15),
+
+            TextFormField(
+              controller: address,decoration: InputDecoration(border:OutlineInputBorder(),hintText: "Enter ur Address"),),
+
+            SizedBox(height: 15),
+            
+            ElevatedButton(onPressed: (){}, child: Text('Register'),
+            ),
+          ],
+        ),
+      ),
+
+    );
+  }
+}
+
