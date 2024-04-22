@@ -1,0 +1,90 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main(){
+  runApp(MyApp());
+
+}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp (
+      title: 'Radio Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ColourScreen(),
+    );
+  }
+}
+
+
+class ColourScreen extends StatefulWidget
+{
+  const ColourScreen({super.key});
+
+  @override
+  State<ColourScreen> createState() => _ColourScreenState();
+}
+
+class _ColourScreenState extends State<ColourScreen>
+{
+  Color _selectedColor = Colors.blue; // Default selected color
+
+  void _onColorSelected(Color? color) {
+    setState(() {
+      _selectedColor = color!;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Colour Selector'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Select Color:'),
+            SizedBox(height: 10),
+            Container(
+              width: 300.0,
+              height: 300.0,
+              color: _selectedColor,
+            ),
+            SizedBox(height:20),
+            
+            Text('Select Colour:'),
+
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Radio(
+                    value: Colors.red,
+                    groupValue: _selectedColor,
+                    onChanged: _onColorSelected,
+                  ),
+                  Text('Red'),
+                  Radio(
+                    value: Colors.blue,
+                    groupValue: _selectedColor,
+                    onChanged: _onColorSelected,
+                  ),
+                  Text('Blue'),
+                  Radio(
+                    value: Colors.green,
+                    groupValue: _selectedColor,
+                    onChanged: _onColorSelected,
+                  ),
+                  Text('Green'),
+                ],
+
+        ),],),
+      ),
+    );
+  }
+}
