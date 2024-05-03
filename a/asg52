@@ -19,6 +19,7 @@ class _MyappState extends State<Myapp> {
   @override
 
   String arithmatic =" ";
+  String result = " ";
 
 
   Widget build(BuildContext context) {
@@ -43,8 +44,8 @@ class _MyappState extends State<Myapp> {
                   onChanged: (value)
                   {
                     setState(() {
-                      var a = int.parse(First.text.toString());
-                      var b = int.parse(Second.text.toString());
+                      double a = double.parse(First.text.toString());
+                      double b = double.parse(Second.text.toString());
 
                       var c = a+b;
 
@@ -64,8 +65,9 @@ class _MyappState extends State<Myapp> {
                     setState(()
                     {
 
-                      var a = int.parse(First.text.toString());
-                      var b = int.parse(Second.text.toString());
+                      double a = double.parse(First.text.toString());
+                      double b = double.parse(Second.text.toString());
+
 
                       var c = a-b;
 
@@ -86,8 +88,8 @@ class _MyappState extends State<Myapp> {
                   {
                     setState(()
                     {
-                      var a = int.parse(First.text.toString());
-                      var b = int.parse(Second.text.toString());
+                      double a = double.parse(First.text.toString());
+                      double b = double.parse(Second.text.toString());
 
                       var c = a*b;
 
@@ -107,8 +109,8 @@ class _MyappState extends State<Myapp> {
                   {
                     setState(()
                     {
-                      var a = int.parse(First.text.toString());
-                      var b = int.parse(Second.text.toString());
+                      double a = double.parse(First.text.toString());
+                      double b = double.parse(Second.text.toString());
 
                       var c = a/b;
 
@@ -119,20 +121,30 @@ class _MyappState extends State<Myapp> {
                   },),
 
               ),
-            ] ),
+              SizedBox(height: 16.0),
+
+              ElevatedButton(
+                onPressed: () {
+                double a = double.parse(First.text) ?? 0.0;
+                double b = double.parse(Second.text) ?? 0.0;
+
+                double resultValue = 0.0;
+
+                  setState(() {
+                  result = 'Result: $resultValue';
+                  });
+                },
+                child: Text('Submit'),
+              ),
+              SizedBox(height: 16.0),
+
+              Text(result, style: TextStyle(fontSize: 18.0)),
+
+
+            ]
+         ),
 
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed:()
-        {
-          print('next');
-        },child: Icon(Icons.add_circle_outline),
-
-      ),
-
-
-
 
     );
 
