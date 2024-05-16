@@ -1,110 +1,134 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
-}
+  runApp(const Myapp());
 
-class MyApp extends StatelessWidget {
+}
+class Myapp extends StatelessWidget {
+  const Myapp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Background Color Changer',
+      debugShowCheckedModeBanner: false,
+      title: 'Registration Form',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch:Colors.pink,
       ),
-      home: ColorScreen(),
+      home: SeekBar(),
+
     );
   }
 }
-class ColorScreen extends StatefulWidget {
+
+
+class SeekBar extends StatefulWidget {
+  const SeekBar({super.key});
+
   @override
-  _ColorScreenState createState() => _ColorScreenState();
+  State<SeekBar> createState() => _SeekBarState();
 }
 
-class _ColorScreenState extends State<ColorScreen> {
-  double _redValue = 0.0;
-  double _greenValue = 0.0;
-  double _blueValue = 0.0;
+class _SeekBarState extends State<SeekBar>
+{
+  double redValue = 0.0;
+  double greenValue = 0.0;
+  double blueValue = 0.0;
 
-  void _onRedChanged(double value) {
-    setState(() {
-      _redValue = value;
+  void updateBackgroundColor()
+  {
+    setState(()
+    {
     });
   }
 
-  void _onGreenChanged(double value) {
-    setState(() {
-      _greenValue = value;
-    });
-  }
-
-  void _onBlueChanged(double value) {
-    setState(() {
-      _blueValue = value;
-    });
-  }
 
   @override
-  Widget build(BuildContext context) {
-    Color backgroundColor = Color.fromRGBO(
-      _redValue.round(),
-      _greenValue.round(),
-      _blueValue.round(),
-      1,
+  Widget build(BuildContext context)
+  {
+    final backgroundColor = Color.fromRGBO(
+      redValue.toInt(),
+      greenValue.toInt(),
+      blueValue.toInt(),
+      1.0,
     );
 
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
-        title: Text('Background Color Changer'),
+        title: Text("RGBO Seekbar"),
+        backgroundColor: Colors.purpleAccent,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 100),
             Text(
-              'Change background color',
-              style: TextStyle(fontSize: 18),
+                'Red: ${redValue.toInt()}',
+                 style: TextStyle(color: Colors.red),
+
             ),
-            SizedBox(height: 20),
-            Container(
-              width: 300,
-              child: Column(
-                children: [
-                  Slider(
-                    value: _redValue,
-                    min: 0,
-                    max: 255,
-                    onChanged: _onRedChanged,
-                    divisions: 255,
-                    label: 'Red: ${_redValue.round()}',
-                  ),
-                  Slider(
-                    value: _greenValue,
-                    min: 0,
-                    max: 255,
-                    onChanged: _onGreenChanged,
-                    divisions: 255,
-                    label: 'Green: ${_greenValue.round()}',
-                  ),
-                  Slider(
-                    value: _blueValue,
-                    min: 0,
-                    max: 255,
-                    onChanged: _onBlueChanged,
-                    divisions: 255,
-                    label: 'Blue: ${_blueValue.round()}',
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: 200,
-              height: 200,
-              color: backgroundColor,
-            ),
-          ],
+           Slider(value: redValue,
+          onChanged: (newValue)
+            {
+            setState(() {
+              redValue = newValue;
+              updateBackgroundColor();
+            });
+            },
+               min: 0.0,//minimum value
+               max: 100.0,//maximumvalue
+               divisions: 100,//number of discrete division
+               label: redValue.toString(),
+           ),
+             Text(
+               'Green: ${greenValue.toInt()}',
+               style: TextStyle(color: Colors.green),
+             ),
+               Slider(value: greenValue,
+                 onChanged: (newValue)
+                 {
+                   setState(() {
+                     greenValue = newValue;
+                     updateBackgroundColor();
+                   });
+
+                 },
+                 min: 0.0, // Minimum value
+                 max: 100.0, // Maximum value
+                 divisions: 100, // Number of discrete divisions
+                 label: greenValue.toString(),
+               ),
+
+               Text(
+                 'Blue: ${blueValue.toInt()}',
+                 style: TextStyle(color: Colors.blue),
+               ),
+
+               Slider(value: blueValue,
+                 onChanged: (newValue)
+                 {
+                   setState(() {
+                     blueValue = newValue;
+                     updateBackgroundColor();
+                   });
+
+                 },
+                 min: 0.0, // Minimum value
+                 max: 100.0, // Maximum value
+                 divisions: 100, // Number of discrete divisions
+                 label: blueValue.toString(),
+               ),
+               SizedBox(height: 20),
+               Container(
+                 width: 500,
+                 height: 500,
+                 color: backgroundColor,
+
+               ),
+           ]
         ),
       ),
     );
